@@ -75,9 +75,8 @@ Provide a scalable platform to measure Scope 1, Scope 2, and material Scope 3 em
 ### 4.1 In Scope for MVP
 - User authentication and role-based access
 - Organization, site, and supplier setup
-- ESG activity data capture and import
-- Scope 1 and Scope 2 emissions calculations
-- Selected material Scope 3 category tracking
+- Multi-format ESG activity data capture (Manual, PDF, Image OCR, Excel, CSV)
+- Unified calculation engine processing Scope 1, Scope 2, and evaluated immediately against a **massive Scope 3 dataset**.
 - Emission factor management
 - Validation rules and audit logging
 - Dashboards for emissions and trends
@@ -117,14 +116,15 @@ Provide a scalable platform to measure Scope 1, Scope 2, and material Scope 3 em
 
 ### 5.3 Data Collection
 - Users must be able to manually enter activity data.
-- Users must be able to import data via CSV or Excel.
-- The system must support activity types such as:
+- The platform must accept unstructured and structured multi-format uploads, specifically: **Images (using OCR), PDFs (Text/OCR extraction), Excel, and CSVs**.
+- The system must support parsing activity types dynamically from these documents:
   - fuel consumption
   - electricity usage
   - travel
   - waste
   - purchased goods/services
   - supplier-provided activity data
+- An immediate focus will be placed on injecting and processing a massive Scope 3 dataset during setup.
 - Each record should store source, owner, timestamp, and evidence links.
 
 ### 5.4 Emissions Calculation
