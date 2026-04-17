@@ -1,45 +1,76 @@
-# CarbonLens Documentation Pack
+# CarbonLens
 
-`CarbonLens` is a documentation-first hackathon concept for `SKB_P1: Digital Intelligent Platform for ESG Performance and GHG Monitoring`.
+`CarbonLens` is a documentation-first hackathon project for `SKB_P1: Digital Intelligent Platform for ESG Performance and GHG Monitoring`.
 
-It is positioned as a simple, practical, high-impact ESG intelligence platform for manufacturing SMEs. The goal is to help organizations centralize emissions data, calculate Scope 1/2 and limited Scope 3 emissions, improve supplier engagement, and produce audit-friendly, decision-ready outputs.
+It is designed as a simple, practical, and impactful ESG intelligence platform for manufacturing SMEs. The concept focuses on giving companies one trusted place to collect emissions-related data, calculate Scope 1 and Scope 2 emissions, manage limited Scope 3 supplier inputs, track governance issues, and generate audit-friendly sustainability summaries.
 
-## What This Pack Contains
+## Problem We Are Solving
 
-- [idea.md](F:\Hackathon\Sankalp Bharat\idea.md)
-- [CRD.md](F:\Hackathon\Sankalp Bharat\CRD.md)
-- [Design.md](F:\Hackathon\Sankalp Bharat\Design.md)
-- [Getting_Started.md](F:\Hackathon\Sankalp Bharat\Getting_Started.md)
-- [quick-reference.md](F:\Hackathon\Sankalp Bharat\quick-reference.md)
-- [rules.md](F:\Hackathon\Sankalp Bharat\rules.md)
-- [next-steps.md](F:\Hackathon\Sankalp Bharat\next-steps.md)
-- [implementation-pan.md](F:\Hackathon\Sankalp Bharat\implementation-pan.md)
-- [progress.md](F:\Hackathon\Sankalp Bharat\progress.md)
-- [demo-script.md](F:\Hackathon\Sankalp Bharat\demo-script.md)
-- [data-model.md](F:\Hackathon\Sankalp Bharat\data-model.md)
-- [api-contract.md](F:\Hackathon\Sankalp Bharat\api-contract.md)
-- [pitch-notes.md](F:\Hackathon\Sankalp Bharat\pitch-notes.md)
+Most organizations still manage ESG and GHG reporting through scattered spreadsheets, emails, and supplier follow-ups. That creates:
 
-## Project Positioning
+- fragmented and inconsistent emissions data
+- slow, manual, error-prone reporting
+- weak visibility for leadership and board-level decisions
+- poor audit readiness and unclear accountability
 
-- Problem: ESG and GHG data is fragmented, manual, and hard to trust.
-- Solution: A single source of truth for emissions, supplier data, governance, and reporting.
-- Audience: Manufacturing SMEs with ESG reporting pressure and limited digital maturity.
-- Hackathon strategy: Build a focused, demo-ready MVP instead of a broad enterprise platform.
+CarbonLens addresses this by acting as a single source of truth for ESG and GHG data.
 
-## Recommended MVP
+## Project Direction
 
-- Facility and activity data upload
+- Target users: Sustainability Manager, Operations/Admin team, Supplier, Leadership/Board reviewer
+- Primary audience: manufacturing SMEs
+- Positioning: ESG control tower for carbon visibility, accountability, and reporting
+- Hackathon strategy: build a focused MVP with strong demo value instead of a broad enterprise platform
+
+## Planned MVP
+
+- Activity data upload and manual entry
 - Scope 1 and Scope 2 emissions calculation
 - Limited Scope 3 supplier submission flow
-- Data quality flags and issue tracking
-- Governance dashboard with accountability
+- Data quality validation and issue detection
+- Governance dashboard with ownership and escalation
 - Summary reporting for leadership and audit readiness
+- Optional AI-generated narrative insights layered on top of deterministic calculations
 
-## Planning Principles
+## Tech Stack
+
+- Frontend: React + Vite + TypeScript + Tailwind CSS
+- Charts: Recharts
+- Backend: Node.js + Express + TypeScript
+- Database: SQLite + Prisma
+- Auth: simple seeded demo auth
+- AI add-on: optional OpenAI narrative summaries
+
+## Repository Docs
+
+- `idea.md` : ideation, concept comparison, final selected idea
+- `CRD.md` : challenge breakdown, scope, goals, risks, personas
+- `Design.md` : UX flows, screen plan, wireframe notes, visual direction
+- `Getting_Started.md` : planned setup, stack, env vars, demo accounts
+- `quick-reference.md` : fast summary for hackathon use
+- `rules.md` : build discipline and timeboxing rules
+- `next-steps.md` : post-hackathon roadmap
+- `implementation-pan.md` : implementation blueprint and 24-hour execution plan
+- `progress.md` : working status tracker
+- `demo-script.md` : 3 to 5 minute judge demo flow
+- `data-model.md` : entities and relationships
+- `api-contract.md` : planned API endpoints and payloads
+- `pitch-notes.md` : pitch framing and talking points
+
+## Demo Story
+
+The demo should show a clear end-to-end flow:
+
+1. A sustainability user opens the dashboard and sees the organization's emissions snapshot.
+2. An operations user uploads new activity data and the platform validates it.
+3. A supplier submits limited Scope 3 data through a simple form.
+4. CarbonLens flags issues, assigns accountability, and updates the organization view.
+5. Leadership generates a concise report-ready summary.
+
+## Key Principles
 
 - Keep calculations deterministic and explainable
-- Use AI only as an optional narrative layer
-- Prefer seeded demo data over risky live integrations
-- Optimize for a strong 3 to 5 minute demo
-- Document decisions clearly so implementation can start immediately
+- Use AI only as an assistive layer, not the source of truth
+- Prefer seeded demo data over risky live dependencies
+- Optimize for a clean, credible 3 to 5 minute hackathon demo
+- Keep the product grounded in real business pain and practical adoption
