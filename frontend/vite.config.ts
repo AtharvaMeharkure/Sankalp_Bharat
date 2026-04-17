@@ -7,19 +7,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@shared': path.resolve(__dirname, '../shared'),
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-  server: {
-    port: 3000,
-    // Proxy all /api/* requests to Sameera's Express backend
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
+      '@': path.resolve(__dirname, './src'),
+      '@shared': path.resolve(__dirname, '../shared')
+    }
+  }
 })

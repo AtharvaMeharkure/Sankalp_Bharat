@@ -22,6 +22,8 @@ import facilityRoutes from './routes/facilities';
 import dashboardRoutes from './routes/dashboard';
 import supplierRoutes from './routes/suppliers';
 import reportRoutes from './routes/reports';
+import internalSupplierRoutes from './routes/suppliersInternal';
+import externalSupplierRoutes from './routes/supplierExternal';
 
 const app = express();
 const PORT = parseInt(process.env.PORT ?? '5000', 10);
@@ -53,6 +55,8 @@ app.use('/api/facilities', facilityRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/suppliers', supplierRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/internal/suppliers', internalSupplierRoutes);
+app.use('/api/supplier', externalSupplierRoutes);
 
 // ── 404 Handler ─────────────────────────────────────────────
 app.use((_req, res) => {

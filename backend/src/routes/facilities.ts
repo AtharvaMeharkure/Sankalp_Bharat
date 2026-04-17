@@ -1,66 +1,61 @@
-// ============================================================
-// CarbonLens — Facility Routes
-// ============================================================
-// GET  /api/facilities     — list org facilities
-// POST /api/facilities     — create facility (ADMIN)
-// ============================================================
-
 import { Router, Request, Response } from 'express';
-import { authenticateToken } from '../middleware/auth';
-import { restrictToRole } from '../middleware/roleGuard';
-import prisma from '../lib/prisma';
+import { PrismaClient } from '@prisma/client';
+import { z } from 'zod';
 
 const router = Router();
-router.use(authenticateToken);
+const prisma = new PrismaClient();
 
-// ── GET /api/facilities ──────────────────────────────────────
-router.get('/', async (req: Request, res: Response): Promise<void> => {
+const facilitySchema = z.object({
+  organizationId: z.string().min(1),
+  name: z.string().min(1),
+  location: z.string().optional(),
+  type: z.string().optional(),
+});
+
+// GET /api/facilities
+router.get('/', async (req: Request, res: Response) => {
   try {
+    const { organizationId } = req.query;
+    
+    const whereClause = organizationId 
+      ? { organizationId: String(organizationId) } 
+      : {};
+
     const facilities = await prisma.facility.findMany({
-      where: { organizationId: req.user!.orgId },
-      orderBy: { name: 'asc' },
+      where: whereClause,
     });
-    res.status(200).json({ facilities });
-  } catch (err) {
-    console.error('[FACILITIES] List error:', err);
-    res.status(500).json({ statusCode: 500, message: 'Failed to retrieve facilities' });
+    res.json({ facilities });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch facilities' });
   }
 });
 
-// ── POST /api/facilities (ADMIN only) ───────────────────────
-router.post(
-  '/',
-  restrictToRole(['ADMIN', 'SUSTAINABILITY_MANAGER']),
-  async (req: Request, res: Response): Promise<void> => {
-    const { name, location, type } = req.body as {
-      name?: string;
-      location?: string;
-      type?: string;
-    };
-
-    if (!name || !location || !type) {
-      res.status(400).json({
-        statusCode: 400,
-        message: 'Missing required fields: name, location, type',
-      });
-      return;
+// POST /api/facilities
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    const validatedData = facilitySchema.parse(req.body);
+    
+    // Ensure org exists
+    const org = await prisma.organization.findUnique({
+      where: { id: validatedData.organizationId }
+    });
+    
+    if (!org) {
+      return res.status(404).json({ error: 'Organization not found' });
     }
 
-    try {
-      const facility = await prisma.facility.create({
-        data: {
-          organizationId: req.user!.orgId,
-          name,
-          location,
-          type,
-        },
-      });
-      res.status(201).json({ facility });
-    } catch (err) {
-      console.error('[FACILITIES] Create error:', err);
-      res.status(500).json({ statusCode: 500, message: 'Failed to create facility' });
+    const facility = await prisma.facility.create({
+      data: validatedData,
+    });
+    res.status(201).json(facility);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.issues });
     }
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create facility' });
   }
-);
+});
 
 export default router;
